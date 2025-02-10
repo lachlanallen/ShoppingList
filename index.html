@@ -43,7 +43,15 @@
       <p v-if="items.length === 0">Well done! You've bought all your items.</p>
 
       <ul>
-        <li v-for="item in items" :key="item.id">{{item.label}}</li>
+        <li
+          v-for="item in items"
+          @click="togglePurchased(item)"
+          :key="item.id"
+          :class="{strikeout: item.purchased, priority: item.highPriority}"
+          class="static-class"
+        >
+          {{item.label}}
+        </li>
       </ul>
     </div>
 
@@ -62,23 +70,32 @@
             newItemHighPriority: false,
 
             items: [
-              /* { id: 1, label: "Milk" },
-              { id: 2, label: "Eggs" },
-              { id: 3, label: "Bread" }, */
+              { id: 1, label: "Milk", purchased: true, highPriority: false },
+              { id: 2, label: "Eggs", purchased: true, highPriority: false },
+              { id: 3, label: "Bread", purchased: false, highPriority: true },
             ],
           };
         },
 
         methods: {
           saveItem() {
-            this.items.push({ id: this.items.length + 1, label: this.newItem });
+            this.items.push({ 
+                id: this.items.length + 1, 
+                label: this.newItem,
+                highPriority: this.newItemHighPriority,});
 
             this.newItem = "";
+            this.newItemHighPriority = "";
           },
 
           doEdit(editing) {
             this.editing = editing;
             this.newItem = "";
+            this.newItemHighPriority = "";
+          },
+
+          togglePurchased(item) {
+            item.purchased = !item.purchased;
           },
         },
       }).mount("#shopping-list");

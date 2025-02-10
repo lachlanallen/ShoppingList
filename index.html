@@ -3,9 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Shopping List App</title>
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    
+    <div id="shopping-list">
+        <h1>{{header || Welcome}}</h1>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    header: "Shopping List App"
+                }
+            }
+        })
+        .mount('#shopping-list')
+    </script>
 </body>
 </html>
